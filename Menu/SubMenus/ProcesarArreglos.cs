@@ -5,12 +5,14 @@ namespace ACT_MI.SubMenus
 {
     public class ProcesarArreglos
     {
-        public void Procesar()
+        public void Procesar()  
         {
-            int option = 0;
-            while (option != 5)
+            int option = 0; // Aquí guardamos qué quiere hacer el usuario
+            while (option != 5) // Esto es un bucle que sigue hasta que se seleccione la opcion de salir
             {
                 Console.Clear();
+                
+                // Aquí mostramos el menú
                 Console.WriteLine("=== PROCESAR ARREGLOS ===");
                 Console.WriteLine("1. Crear arreglo");
                 Console.WriteLine("2. Ordenar arreglo");
@@ -19,11 +21,12 @@ namespace ACT_MI.SubMenus
                 Console.WriteLine("5. Volver al menú principal");
                 Console.Write("Seleccione una opción: ");
 
-                try
+                try // Intentamos hacer esto, por si el usuario escribe algo raro
                 {
-                    option = Convert.ToInt32(Console.ReadLine());
-                    int[] arreglo = new int[0];
+                    option = Convert.ToInt32(Console.ReadLine()); // Leemos lo que escribió
+                    int[] arreglo = new int[0]; // Creamos una lista vacía por si acaso
 
+                    // Dependiendo de lo que eligió, hacemos diferentes cosas
                     switch (option)
                     {
                         case 1:
@@ -49,13 +52,14 @@ namespace ACT_MI.SubMenus
                             break;
                     }
 
+                    // Si no elegiste salir, te preguntamos que presiones una tecla
                     if (option != 5)
                     {
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
                     }
                 }
-                catch (Exception e)
+                catch (Exception e) // Por si escribes letras en lugar de números
                 {
                     Console.WriteLine("Error: El tipo ingresado no es válido.");
                     Console.WriteLine("Presione cualquier tecla para continuar...");
@@ -80,13 +84,15 @@ namespace ACT_MI.SubMenus
 
             return arreglo;
         }
-
+        
+        // Mostrar la lista como: [1, 2, 3, 4]
         private void MostrarArreglo(int[] arreglo)
         {
             Console.WriteLine("\nArreglo creado:");
             Console.WriteLine($"[{string.Join(", ", arreglo)}]");
         }
 
+        // Ordenar los números de menor a mayor
         private void OrdenarArreglo(int[] arreglo)
         {
             Array.Sort(arreglo);
@@ -94,11 +100,13 @@ namespace ACT_MI.SubMenus
             Console.WriteLine($"[{string.Join(", ", arreglo)}]");
         }
 
+
+        // Buscar un número en la lista
         private void BuscarElemento(int[] arreglo)
         {
             Console.Write("Ingrese el elemento a buscar: ");
             int elemento = Convert.ToInt32(Console.ReadLine());
-
+            // Buscamos el número en la lista
             int indice = Array.IndexOf(arreglo, elemento);
             
             if (indice != -1)
@@ -111,6 +119,7 @@ namespace ACT_MI.SubMenus
             }
         }
 
+        // Juntar dos listas y ordenarlas
         private void UnirYArreglar()
         {
             Console.WriteLine("=== CREAR PRIMER ARREGLO ===");
@@ -118,13 +127,16 @@ namespace ACT_MI.SubMenus
             
             Console.WriteLine("=== CREAR SEGUNDO ARREGLO ===");
             int[] arreglo2 = CrearArreglo();
-
+            // Preparamos una caja más grande para los dos arreglos juntas
             int[] arregloUnido = new int[arreglo1.Length + arreglo2.Length];
+            // Ponemos la primera lista
             Array.Copy(arreglo1, arregloUnido, arreglo1.Length);
+            // Y después ponemos la segunda lista
             Array.Copy(arreglo2, 0, arregloUnido, arreglo1.Length, arreglo2.Length);
 
             Array.Sort(arregloUnido);
 
+            // Mostramos todo
             Console.WriteLine("\nArreglos unidos y ordenados:");
             Console.WriteLine($"Arreglo 1: [{string.Join(", ", arreglo1)}]");
             Console.WriteLine($"Arreglo 2: [{string.Join(", ", arreglo2)}]");
